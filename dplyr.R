@@ -1,5 +1,7 @@
 # install.packages('nycflights13')
+# install.packages('dplyr')
 library(nycflights13)
+library(dplyr)
 
 ## Important functions:
 ## filter(): pick some specific data
@@ -12,29 +14,29 @@ library(nycflights13)
 ## remainder: %%
 
 ## filter operation
-filter(flights, month == 1, day == 2)
+# filter(flights, month == 1, day == 2)
 
 ## %in% operation
-nov_dec <- filter(flights, month %in% c(11, 12))
+# nov_dec <- filter(flights, month %in% c(11, 12))
 
 ## NA recognition
-da <- data.frame(x = c(1, NA, 3))
-filter(da, is.na(x) | x > 1)
+# da <- data.frame(x = c(1, NA, 3))
+# filter(da, is.na(x) | x > 1)
 
 ## arrange operation
-arrange(flights, desc(month))
+# arrange(flights, desc(month))
 
 ## arrange the NA values beto be appeared first
-arrange(da, desc(is.na(x)), desc(x))
+# arrange(da, desc(is.na(x)), desc(x))
 
 ## select operation
-select(flights, year, month, day)
+# select(flights, year, month, day)
 
 ## select from column to another column
-select(flights, year:day)
+# select(flights, year:day)
 
 ## do not select some columns
-select(flights, -(year:day))
+# select(flights, -(year:day))
 
 ## select helpers:
 ## starts_with("abc") the column name starts with abc
@@ -44,7 +46,7 @@ select(flights, -(year:day))
 ## num_range("x", 1:3) matches the columns x1, x2, x3
 
 ## rename a column
-rename(flights, tail_num = tailnum)
+# rename(flights, tail_num = tailnum)
 
 ## selectselect some columns to be appeared first and the rest after that
 ## with the 'everything' command
@@ -72,6 +74,5 @@ select(flights, time_hour, everything())
 ## get the rank of the elements by min_rank() or min_rank(desc())
 # x <- c(1, 4, 2, 8, 7)
 # min_rank(x) # 1 3 2 5 4
-
 
 
