@@ -75,4 +75,35 @@ select(flights, time_hour, everything())
 # x <- c(1, 4, 2, 8, 7)
 # min_rank(x) # 1 3 2 5 4
 
+## summarise: collapse a data frame to a single row
+# summarise(flights, delay = mean(dep_delay, na.rm = TRUE))
+
+## combination of group_by and summarise
+# by_date <- group_by(flights, year, month, day)
+# summarise(by_date, delay = mean(dep_delay, na.rm = TRUE))
+
+## the relationship between mean distance and mean delay 
+by_dest <- group_by(flights, dest)
+delay <- summarise(by_dest, 
+          count = n(),
+          dist = mean(distance, na.rm = TRUE),
+          delay = mean(dep_delay, na.rm = TRUE))
+delay <- filter(delay, count > 10, dest != "HNL")
+ggplot2::ggplot(data = delay,
+                mapping = aes(x = dist, y = delay)) +
+  geom_point(aes(size = count), alpha = 1/3) +
+  geom_smooth(se = FALSE)
+
+## The other way to make filtering by %>% (pipe) 
+# delay <- flights % >%
+#   group_by(dest) %>%
+#   summarise(count = n(),
+#             dist = mean(dist, na.rm = TRUE),
+#             delay = mean(dep_delay, na.rm = TRUE)) %>%
+#   filter(count > 10, dest != "HNL")
+
+
+## Page 64
+
+
 
