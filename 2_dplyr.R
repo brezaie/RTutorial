@@ -167,7 +167,7 @@ library(Lahman)
 #   arrange(desc(carriers))
 # not_cancelled %>% count(dest)
 
-## IMPORTANT: the logics inside the 'sum' and 'mean' function are intrepreted as 1 (TRUE) or 0 (FALSE)
+## IMPORTANT! the logics inside the 'sum' and 'mean' function are intrepreted as 1 (TRUE) or 0 (FALSE)
 ## how may flights have left before 5am?
 # not_cancelled %>% group_by(year, month, day) %>% summarise(n_early = sum(dep_time < 500))
 ## What proportion of flights are delayed by more than 1 hour?
