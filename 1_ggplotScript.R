@@ -159,3 +159,8 @@ library(dplyr)
 #   geom_abline() + 
 #   coord_fixed(ratio = 0.7)
 
+## use geom_histogram to show continueous variables. 
+## It devides the values into ranges and shows the number of
+## items in each range
+ggplot(data = diamonds) + 
+  geom_histogram(mapping = aes(x = carat), binwidth = 0.5)
