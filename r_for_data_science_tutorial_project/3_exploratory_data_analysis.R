@@ -60,19 +60,32 @@ diamonds %>% count(cut_width(carat, 0.5))
 ## Solution 3: 
 # diamonds %>%
 #   count(color, cut) %>%
-#   ggplot(mapping = aes(x = color, y = cut)) + 
+#   ggplot(mapping = aes(x = color, y = cut)) +
 #   geom_tile(mapping = aes(fill = n))
 
 ## For large data points, use 'geom_hex' or 'geom_bin2d', 
 ## instead of 'geom_point'
 # diamonds %>%
-#   ggplot(mapping = aes(x = carat, y = price)) + 
+#   ggplot(mapping = aes(x = carat, y = price)) +
+#   geom_bin2d()
+
+## Convert a contineous data into discrete data using the grouping by
+## the 'cut_width' function
+# ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
+#   geom_boxplot(mapping = aes(group = cut_width(carat, 0.5)))
+
+## To make the width of the box-plot proportional to 
+## the number of points with 'varwidth = TRUE'
+# ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
+#   geom_boxplot(mapping = aes(group = cut_width(carat, 0.5)), 
+#                varwidth = TRUE)
+
+## To have the same number of points in each bin, use 'cut_number'
+# ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
+#   geom_boxplot(mapping = aes(group = cut_number(carat, 20)))
+
+## Save file in pdf and csv
+# ggplot(diamonds, aes(carat, price)) + 
 #   geom_hex()
-
-
-
-
-
-
-
-
+# ggsave("diamonds.pdf")
+# write.csv(diamonds, "diamonds.csv")
