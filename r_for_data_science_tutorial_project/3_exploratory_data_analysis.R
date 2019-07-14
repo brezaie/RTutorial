@@ -6,86 +6,86 @@
 diamonds %>% count(cut_width(carat, 0.5))
 
 ## Limitation on y axis
-# ggplot(diamonds) + 
-#   geom_histogram(mapping = aes(x = y), binwidth = 0.5) + 
-#   coord_cartesian(ylim = c(0, 50))
+ggplot(diamonds) +
+  geom_histogram(mapping = aes(x = y), binwidth = 0.5) +
+  coord_cartesian(ylim = c(0, 50))
 
 ## ggplot removes the missing values when drawing the plot
-# diamonds2 <- diamonds %>%
-#   mutate(y = ifelse(y < 3 | y > 20, NA, y))
-# ggplot(diamonds2, mapping = aes(x = x, y = y)) + 
-#   geom_point(na.rm = TRUE)
+diamonds2 <- diamonds %>%
+  mutate(y = ifelse(y < 3 | y > 20, NA, y))
+ggplot(diamonds2, mapping = aes(x = x, y = y)) +
+  geom_point(na.rm = TRUE)
 
 ## At which hours cancelled and non-cancelled flights have occurred
-# flights %>%
-#   mutate(
-#     cancelled = is.na(dep_time),
-#     sched_hour = sched_dep_time%/% 100,
-#     sched_min = sched_dep_time %% 100,
-#     sched_dep_time = sched_hour + sched_min / 60
-#   ) %>%
-#   ggplot(mapping = aes(x = sched_dep_time, color = cancelled)) +
-#   geom_freqpoly(binwidth = 1 / 4)
+flights %>%
+  mutate(
+    cancelled = is.na(dep_time),
+    sched_hour = sched_dep_time%/% 100,
+    sched_min = sched_dep_time %% 100,
+    sched_dep_time = sched_hour + sched_min / 60
+  ) %>%
+  ggplot(mapping = aes(x = sched_dep_time, color = cancelled)) +
+  geom_freqpoly(binwidth = 1 / 4)
 
 ## IMPORTANT! 'density' on y-axis displays the count standardized so that the area
 ## under each frequence polygon is one
-# ggplot(diamonds, mapping = aes(x = price, y = ..density..)) + 
-#   geom_freqpoly(mapping = aes(color = cut))
+ggplot(diamonds, mapping = aes(x = price, y = ..density..)) +
+  geom_freqpoly(mapping = aes(color = cut))
 
 ## geom_boxplot example
-# ggplot(data = diamonds, mapping = aes(x = cut, y = price)) + 
-#   geom_boxplot()
+ggplot(data = diamonds, mapping = aes(x = cut, y = price)) +
+  geom_boxplot()
 
-## 'reorder' the classes (categorical variable) according 
+## 'reorder' the classes (categorical variable) according
 ## to another value. In here, we reorder the 'class' variable
 ## according to the 'median' of the 'hwy'
-# mpg %>%
-#   ggplot(
-#     mapping = aes(
-#       x = reorder(class, hwy, FUN = median),
-#       y = hwy
-#     )
-#   ) +
-#   geom_boxplot() + 
-#   coord_flip()
+mpg %>%
+  ggplot(
+    mapping = aes(
+      x = reorder(class, hwy, FUN = median),
+      y = hwy
+    )
+  ) +
+  geom_boxplot() +
+  coord_flip()
 
-## IMPORTANT! Get the correlaion (covariation) between two 
+## IMPORTANT! Get the correlaion (covariation) between two
 ## categorical variables
 ## For large plots, use 'd3heatmap' or 'heatmaply' packages
 ## Solution 1:
 # ggplot(data = diamonds) +
-#   geom_count(mapping = aes(x = cut, y = color))
+ geom_count(mapping = aes(x = cut, y = color))
 ## Solution 2:
-# diamonds %>% count(color, cut)
-## Solution 3: 
-# diamonds %>%
-#   count(color, cut) %>%
-#   ggplot(mapping = aes(x = color, y = cut)) +
-#   geom_tile(mapping = aes(fill = n))
+diamonds %>% count(color, cut)
+## Solution 3:
+diamonds %>%
+  count(color, cut) %>%
+  ggplot(mapping = aes(x = color, y = cut)) +
+  geom_tile(mapping = aes(fill = n))
 
-## For large data points, use 'geom_hex' or 'geom_bin2d', 
+## For large data points, use 'geom_hex' or 'geom_bin2d',
 ## instead of 'geom_point'
-# diamonds %>%
-#   ggplot(mapping = aes(x = carat, y = price)) +
-#   geom_bin2d()
+diamonds %>%
+  ggplot(mapping = aes(x = carat, y = price)) +
+  geom_bin2d()
 
 ## Convert a contineous data into discrete data using the grouping by
 ## the 'cut_width' function
-# ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
-#   geom_boxplot(mapping = aes(group = cut_width(carat, 0.5)))
+ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
+  geom_boxplot(mapping = aes(group = cut_width(carat, 0.5)))
 
-## To make the width of the box-plot proportional to 
+## To make the width of the box-plot proportional to
 ## the number of points with 'varwidth = TRUE'
-# ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
-#   geom_boxplot(mapping = aes(group = cut_width(carat, 0.5)), 
-#                varwidth = TRUE)
+ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
+  geom_boxplot(mapping = aes(group = cut_width(carat, 0.5)),
+               varwidth = TRUE)
 
 ## To have the same number of points in each bin, use 'cut_number'
-# ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
-#   geom_boxplot(mapping = aes(group = cut_number(carat, 20)))
+ggplot(data = diamonds, mapping = aes(x = carat, y = price)) +
+  geom_boxplot(mapping = aes(group = cut_number(carat, 20)))
 
 ## Save file in pdf and csv
-# ggplot(diamonds, aes(carat, price)) + 
-#   geom_hex()
-# ggsave("diamonds.pdf")
-# write.csv(diamonds, "diamonds.csv")
+ggplot(diamonds, aes(carat, price)) +
+  geom_hex()
+ggsave("diamonds.pdf")
+write.csv(diamonds, "diamonds.csv")

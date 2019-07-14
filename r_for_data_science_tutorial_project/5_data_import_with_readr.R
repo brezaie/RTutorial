@@ -40,3 +40,9 @@ set_column_names_csv <- read_csv("1,2,3\n4,5,6",
 ## Show not avaibale values
 na_csv <- read_csv("a,b,c\n1,2,.", na = ".")
 
+
+## To read from Excel
+install.packages('readxl')
+library(readxl)
+readxl::read_excel()
+
