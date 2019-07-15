@@ -96,7 +96,7 @@ library(dplyr)
 #   geom_bar(mapping = aes(x = cut))
 
 ## stat = "identity" example
-## Identity stat displays the real value of each x axis features
+## Identity stat displays the real value of each y axis features
 # a <- c("bar1", "bar2", "bar3")
 # b <- c(10, 20, 30)
 # da <- data.frame(a, b)
