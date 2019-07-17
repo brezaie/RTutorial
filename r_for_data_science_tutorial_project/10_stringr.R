@@ -32,3 +32,5 @@ str_sub(x, 1, 1) <- str_to_lower(str_sub(x, 1, 1))
 x <- c("apple", "eggplant", "banana")
 str_sort(x, locale = "fa")
 
+
+
