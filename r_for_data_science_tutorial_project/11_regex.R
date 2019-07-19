@@ -38,4 +38,41 @@ str_view(x, 'C[LX]+?')
 
 
 
-## Page 206
+## Grouping: \\1 refers to the group which is in paranthesis 
+library(stringr)
+str_view(fruit, "(..)\\1", match = TRUE)
+str_view(fruit, "(.)(.)\\2\\1", match = TRUE)
+str_view(fruit, "(.).\\1.\\1", match = TRUE)
+
+## To check if a vector matches the regex:
+x <- c("apple", "banana", "pear")
+str_detect(x, "e")
+# How many common words start with t?
+sum(str_detect(words, "^t"))
+# What proportion of common words end with a vowel?
+mean(str_detect(words, "[aeiou]$"))
+
+## IMPORTANT: Find the words ending in 'x'
+## str_subset: get the matches of a regrex
+words[str_detect(words, 'x$')]
+## OR
+str_subset(words, 'x$')
+
+## Find all the senteces containing a color
+## str_extract: extract the actual text of a match
+color <- c("red", "orange", "yellow", "green", "blue", "purple")
+color_match <- str_c(color, collapse = "|")
+color_match
+## extract the sentences that contain a color:
+has_color <- str_subset(sentences, color_match)
+## extract the colors:
+matches <- str_extract(has_color, color_match)
+
+## IMPORTANT:
+## str_count: get the number of matches with regex:
+## selecting all the sentences that have more than one match:
+more <- sentences[str_count(sentences, color_match) > 1]
+
+## ignore case
+bananas <- c("banana", "Banana", "BANANA")
+str_view(bananas, regex("banana", ignore_case = TRUE))
