@@ -164,3 +164,10 @@ library(dplyr)
 ## items in each range
 # ggplot(data = diamonds) + 
 #   geom_histogram(mapping = aes(x = carat), binwidth = 0.5)
+
+## By deafult, ggplot drops the columns with no value.
+## They can be shown by 'scale_x_discrete(drop = FALSE)'
+library(forcats)
+ggplot(gss_cat, aes(race)) +
+  geom_bar() +
+  scale_x_discrete(drop = FALSE)
