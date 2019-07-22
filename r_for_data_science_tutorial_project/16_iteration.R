@@ -31,3 +31,52 @@ col_summary(df, median)
 col_summary(df, mean)
 
 ## Page 325
+
+
+# Mapping instead of loop -------------------------------------------------
+
+
+## example 1
+df
+map_dbl(df, mean)
+map_dbl(df, median)
+
+## example 2
+z <- list(x = 1:3, y = 4:6)
+z %>%
+  map(mean)
+
+## example 3
+models <- mtcars %>%
+  split(.$cyl) %>%
+  map(function(df) lm(mpg ~ wt, data = df))
+## OR ('.' referes tp the current list element)
+models <- mtcars %>%
+  split(.$cyl) %>%
+  map(~lm(mpg ~ wt, data = .))
+models %>% map(summary)
+
+## Get the number of unique values in each column of the 'iris'
+iris %>% map(function(x) length(unique(x)))
+## OR
+iris %>% lapply(function(x) length(unique(x)))
+
+
+# Use 'walk/pwalk/walk2' for void (no return) functions -------------------------------
+
+## IMPORTANT: Save the plots to files
+plots <- mtcars %>%
+  split(.$cyl) %>%
+  map(~ggplot(., aes(mpg, wt)) + geom_point())
+paths <- str_c(names(plots), ".pdf")
+pwalk(list(paths, plots), ggsave, path = tempdir())
+
+
+
+# Predicates --------------------------------------------------------------
+
+## Find the first element and its index
+x <- sample(10)
+x
+x %>% detect(~ . < 5)
+x %>% detect_index(~ . < 5)
