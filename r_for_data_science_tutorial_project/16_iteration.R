@@ -80,3 +80,10 @@ x <- sample(10)
 x
 x %>% detect(~ . < 5)
 x %>% detect_index(~ . < 5)
+
+
+
+x <- c(1, 3, 6, 9)
+x
+as.data.frame(x)
+sapply(as.data.frame(x), sum)
