@@ -99,3 +99,36 @@ sim1_mod <- lm(y ~ x, data = sim1)
 coef(sim1_mod)
 
 
+
+# Create a grid for visualization of the data ------------------------------
+
+## The 'data_grid' creates data points near the given values
+grid <- sim1 %>% data_grid(x)
+grid
+
+## Add predictions:
+grid <- grid %>%
+  add_predictions(sim1_mod)
+grid
+
+## Visualize the real values and the model predicted points
+ggplot(sim1, aes(x)) + 
+  geom_point(aes(y = y)) + 
+  geom_abline(
+    aes(y = pred),
+    data = grid, 
+    colour = "red",
+    size = 1
+  )
+
+
+ggplot(sim1, aes(x)) +
+  geom_point(aes(y = y)) +
+  geom_line(
+    aes(y = pred),
+    data = grid,
+    colour = "red",
+    size = 1
+  )
+
+## Page 355
