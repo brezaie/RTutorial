@@ -28,6 +28,7 @@ by_country <- by_country %>%
 by_country
 
 resids <- unnest(by_country, resids)
+resids
 resids %>% 
   ggplot(aes(year, resid)) + 
   geom_line(aes(group = country), alpha = 1 / 3) + 
@@ -40,3 +41,10 @@ resids %>%
   facet_wrap(~ continent)
 
 ## Page 406 - Model Quality
+library(broom)
+
+glance <- by_country %>%
+  mutate(glance = map(model, broom::glance)) %>%
+  unnest(glance, .drop = TRUE)
+
+glance %>% arrange(r.squared)
