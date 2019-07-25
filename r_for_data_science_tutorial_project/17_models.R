@@ -214,4 +214,6 @@ ggplot(sim4_grid, aes(x1, x2)) +
   geom_tile(aes(fill = pred)) + 
   facet_wrap(~model)
 
+x <- 5
+
 
