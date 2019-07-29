@@ -1,0 +1,28 @@
+---
+title: '**Behzad Rezaie**'
+output:
+  html_document: default
+  pdf_document: default
+---
+<behzadrezaie11@gmail.com> | <https://github.com/brezaie>
+
+### *Education*
+***
+<div class = "col-md-6">
+**Master of Science in Artificial Intelligence**
+</div>
+<div class = "col-md-3" style="direction: rtl">
+2013-16
+</div>
+<div class = "col-md-12">
+*__Shahrood University of Technology__*
+</div>
+
+<div class = "col-md-12">
+Here is the summary
+</div>
+```{r summary_sec echo=FALSE}
+summary(mtcars)
+```
+
+

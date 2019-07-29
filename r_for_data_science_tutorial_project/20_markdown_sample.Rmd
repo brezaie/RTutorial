@@ -1,0 +1,35 @@
+---
+title: "19_markdown_sample"
+author: "Behzad"
+date: "July 29, 2019"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+Print the tables in an additional format:
+```{r}
+knitr::kable(
+  mtcars[1:5, ],
+  caption= "A knitr kable"
+)
+
+```
+
+Data can be cached using the **cached = TRUE**
+```{r x_data}
+x <- c(1:10)
+```
+
+
+```{r y_data, cached = TRUE, dependson = "x_data", echo=FALSE}
+y <- cumsum(x)
+library(ggplot2)
+```
+
+
+
+
+Inline code is like to say the number of rows in the diamonds dataset is `r nrow(diamonds)`. That's it
+
+
