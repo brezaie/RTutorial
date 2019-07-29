@@ -1,0 +1,27 @@
+---
+title: "Plot Saving"
+author: "Behzad"
+date: "July 29, 2019"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+This tutorial shows the way to output a plot properly by the following attributes:
+
+**fig.width = 6**
+
+**fig.align='center'**
+
+**out.width="70%"**
+
+**fig.show='hold'**: When mingling code and text, like I do in this book, I recommend setting fig.show = "hold" so that plots are shown after the code.
+
+```{r plot_savin, warning=FALSE, message=FALSE, fig.width = 6, fig.align='center', out.width="70%", fig.show='hold'}
+library(dplyr)
+library(ggplot2)
+mpg %>% ggplot(aes(displ, hwy)) + 
+  geom_point(aes(color = class)) + 
+  geom_smooth(se = FALSE)
+
+```

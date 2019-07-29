@@ -3,8 +3,6 @@ library(ggplot2)
 install.packages('ggrepel')
 library(ggrepel)
 
-
-
 # Title -------------------------------------------------------------------
 
 ## Use labs() to add title
@@ -31,6 +29,7 @@ ggplot(df, aes(x, y)) +
     x = quote(sum(x[i] ^ 2, i == 1, n)),
     y = quote(alpha + beta + frac(delta, theta))
   )
+
 
 
 # Annotation (text on the plot) -------------------------------------------
@@ -93,6 +92,7 @@ ggplot(mpg, aes(displ, hwy)) +
   )
 
 
+
 # Scales ------------------------------------------------------------------
 
 ## use scales_X_X format
@@ -122,4 +122,92 @@ presidential %>%
     date_labels = "'%y"
   )
   
+## Legend attributes:
+## Change the size of the circles in the legend
+## Change the number of rows and cols
+## Change the position of the legend
+ggplot(mpg, aes(displ, hwy)) + 
+  geom_point(aes(color = class)) + 
+  geom_smooth(se = FALSE) + 
+  theme(legend.position = "bottom") + 
+  guides(
+    color = guide_legend(nrow = 1, override.aes = list(size = 5))
+  )
+
+## Scale to log:
+ggplot(diamonds, aes(carat, price)) + 
+  geom_bin2d() + 
+  scale_x_log10() + 
+  scale_y_log10()
+
+## Scale colors manually
+## RColorBrewer is shown on Page 457 or the folllowing:
+## https://r4ds.had.co.nz/graphics-for-communication.html#replacing-a-scale
+ggplot(mpg, aes(displ, hwy)) + 
+  geom_point(aes(color = drv)) +
+  scale_color_brewer(palette = "Set1")
+  
+## Set color manually:
+presidential %>%
+  mutate(id = row_number()) %>%
+  ggplot(aes(start, id, color = party)) + 
+  geom_point() + 
+  geom_segment(aes(xend = end, yend = id)) + 
+  geom_point(aes(end, id)) + 
+  scale_x_date(
+    NULL,
+    breaks = presidential$start,
+    date_labels = "'%y"
+  ) + 
+  scale_color_manual(values = c(Republican = "red", Democratic = "blue"))
+
+
+
+
+# Zooming -----------------------------------------------------------------
+
+## Set limits on the axises:
+ggplot(mpg, aes(displ, hwy)) + 
+  geom_point(aes(color = class)) + 
+  geom_smooth(se = FALSE) + 
+  coord_cartesian(xlim = c(5, 7), ylim = c(10, 30))
+
+## IMPORTANT: When comparing 2 plots, unify the axis ranges:
+suv <- mpg %>% filter(class == "suv")
+compact <- mpg %>% filter(class == "compact")
+
+x_scale <- scale_x_continuous(limits = range(mpg$displ))
+y_scale <- scale_y_continuous(limits = range(mpg$hwy))
+col_scale <- scale_color_discrete(limits = unique(mpg$drv))
+
+ggplot(suv, aes(displ, hwy, color = drv)) + 
+  geom_point() + 
+  x_scale + 
+  y_scale + 
+  col_scale
+
+ggplot(compact, aes(displ, hwy, color = drv)) + 
+  geom_point() + 
+  x_scale + 
+  y_scale + 
+  col_scale
+
+
+# Themes ------------------------------------------------------------------
+
+ggplot(mpg, aes(displ, hwy)) + 
+  geom_point(aes(color = class)) + 
+  geom_smooth(se = FALSE) + 
+  theme_classic()
+
+
+
+# Saving plots ------------------------------------------------------------
+
+ggplot(mpg, aes(displ, hwy)) + 
+  geom_point(aes(color = class)) + 
+  geom_smooth(se = FALSE)
+
+ggsave("new_plot.pdf")
+
 
