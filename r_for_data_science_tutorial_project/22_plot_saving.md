@@ -1,12 +1,7 @@
----
-title: "Plot Saving"
-author: "Behzad"
-date: "July 29, 2019"
-output:
-  pdf_document: default
-  html_document: default
-  github_document: default
----
+Plot Saving
+================
+Behzad
+July 29, 2019
 
 This tutorial shows the way to output a plot properly by the following attributes:
 
@@ -18,11 +13,12 @@ This tutorial shows the way to output a plot properly by the following attribute
 
 **fig.show='hold'**: When mingling code and text, like I do in this book, I recommend setting fig.show = "hold" so that plots are shown after the code.
 
-```{r plot_savin, warning=FALSE, message=FALSE, fig.width = 6, fig.align='center', out.width="70%", fig.show='hold'}
+``` r
 library(dplyr)
 library(ggplot2)
 mpg %>% ggplot(aes(displ, hwy)) + 
   geom_point(aes(color = class)) + 
   geom_smooth(se = FALSE)
-
 ```
+
+<img src="22_plot_saving_files/figure-markdown_github/plot_savin-1.png" width="70%" style="display: block; margin: auto;" />

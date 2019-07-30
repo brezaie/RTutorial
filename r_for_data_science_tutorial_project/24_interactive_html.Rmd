@@ -1,0 +1,44 @@
+---
+title: "24_interactive_html"
+author: "Behzad"
+date: "July 30, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(leaflet)
+```
+
+## R Markdown
+
+The most mportant interactive html elements:
+
+**dygraphs** <http://rstudio.github.io/dygraphs/> - time series 
+
+**DT** <https://rstudio.github.io/DT/> - interactive tables
+
+**threejs** <https://github.com/bwlewis/rthreejs> - 3D plots
+
+**DiagrammeR** <http://rich-iannone.github.io/DiagrammeR/> - diagrams (flowchart and simple node-link diagrams)
+
+```{r interactive_map, echo=FALSE}
+leaflet() %>%
+setView(174.764, -36.877, zoom = 16) %>%
+addTiles() %>%
+addMarkers(174.764, -36.877, popup = "Maungawhau")
+```
+
+```{r}
+library(threejs)
+z <- seq(-10, 10, 0.1)
+x <- cos(z)
+y <- sin(z)
+scatterplot3js(x, y, z, color=rainbow(length(z)))
+```
+
+```{r}
+data(ego)
+graphjs(ego, bg="black")
+```
+
